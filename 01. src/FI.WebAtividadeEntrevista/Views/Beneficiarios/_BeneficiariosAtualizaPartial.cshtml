@@ -1,0 +1,27 @@
+﻿@model FI.WebAtividadeEntrevista.Models.BeneficiarioModel
+
+@using (Html.BeginForm("Atualiza", "Beneficiarios", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Hidden("IsValid", ViewData.ModelState.IsValid.ToString())
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.IdCliente)
+
+    <div class="row">
+        <div class="form-group col-md-8">
+            @Html.LabelFor(model => model.Nome, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Nome, new { @class = "form-control form-control-sm col-md-12" })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Cpf, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Cpf, new { @class = "form-control form-control-sm col-md-7 cpf", @placeholder = "Ex.: 999.999.999-99", @maxlength = "11" })
+            @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
+        </div>
+    </div>
+}

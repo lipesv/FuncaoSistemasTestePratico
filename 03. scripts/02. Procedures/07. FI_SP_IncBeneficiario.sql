@@ -1,0 +1,28 @@
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE FI_SP_IncBeneficiario @NOME VARCHAR(255)
+    , @CPF VARCHAR(11)
+    , @IDCLIENTE BIGINT
+AS
+BEGIN
+    INSERT INTO [dbo].[BENEFICIARIOS] (
+        NOME
+        , CPF
+        , IDCLIENTE
+        )
+    VALUES (
+        @NOME
+        , @CPF
+        , @IDCLIENTE
+        )
+
+    SELECT SCOPE_IDENTITY()
+    
+END
+GO
+
+
