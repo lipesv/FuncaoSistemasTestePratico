@@ -1,0 +1,110 @@
+﻿@model FI.WebAtividadeEntrevista.Models.ClienteModel
+
+@using (Html.BeginForm("ActionName", "ControllerName", FormMethod.Post, new { id = "formCadastro", @class = "form-vertical" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="form-group col-md-8">
+
+            @Html.HiddenFor(model => model.Id)
+
+            @Html.LabelFor(model => model.Nome, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Nome, new { @class = "form-control form-control-sm col-md-12", @placeholder = "Ex.: João", @maxlength = "50" })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="form-group col-md-5">
+            @Html.LabelFor(model => model.Sobrenome, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Sobrenome, new { @class = "form-control form-control-sm col-md-10", @placeholder = "Ex.: da Silva", @maxlength = "255" })
+            @Html.ValidationMessageFor(model => model.Sobrenome, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-3">
+            @Html.LabelFor(model => model.Nacionalidade, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Nacionalidade, new { @class = "form-control form-control-sm", @placeholder = "Ex.: brasileira", @maxlength = "50" })
+            @Html.ValidationMessageFor(model => model.Nacionalidade, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.Cpf, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Cpf, new { @class = "form-control form-control-sm col-md-12 cpf", @placeholder = "Ex.: 999.999.999-99", @maxlength = "11" })
+            @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control form-control-sm col-md-12", @placeholder = "Ex.: email@email.com", @maxlength = "2079" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.Telefone, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Telefone, new { @class = "form-control form-control-sm col-md-12 tel", @placeholder = "Ex.: (11) 2020-3030", @maxlength = "15" })
+            @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.CEP, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.CEP, new { @class = "form-control form-control-sm col-md-8 cep", @placeholder = "Ex.: 01011-100", @maxlength = "8" })
+            @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-3">
+            @Html.LabelFor(model => model.Estado, new { @class = "control-label col-form-label-sm" })
+            @Html.DropDownListFor(m => m.Estado, Model.Estados, "Selecione um Estado", new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-3">
+            @Html.LabelFor(model => model.Cidade, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Cidade, new { @class = "form-control form-control-sm", @placeholder = "Ex.: São Paulo", @maxlength = "50" })
+            @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-8">
+            @Html.LabelFor(model => model.Logradouro, new { @class = "control-label col-form-label-sm" })
+            @Html.TextBoxFor(model => model.Logradouro, new { @class = "form-control form-control-sm col-md-12", @placeholder = "Ex.: Rua Boa Vista 253", @maxlength = "500" })
+            @Html.ValidationMessageFor(model => model.Logradouro, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    if (Model.Beneficiarios != null && Model.Beneficiarios.Any())
+    {
+        <div class="form-group">
+            <div class="col-md-08">
+                <div id="beneficiariosList">
+                    <table id="gridBeneficiarios" class="table" style="width: 65%"></table>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+
+        <div class="form-group col-md-8 text-right">
+            @if (Model.Id > 0)
+            {
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal" data-url='@Url.Action("Cadastro", "Beneficiarios", new { IdCliente = Model.Id })' data-title="Inclusão Beneficiário">
+                    <i class="fa fa-pencil-square-o"></i> Incluir Beneficiário
+                </button>
+            }
+            <button type="submit" class="btn btn-sm btn-success">Salvar</button>
+            @Html.ActionLink("Voltar", "Index", "Cliente", new { @class = "btn btn-sm btn-danger" })
+        </div>
+    </div>
+}
